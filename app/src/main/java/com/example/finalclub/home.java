@@ -32,8 +32,8 @@ import java.util.ArrayList;
 public class home extends AppCompatActivity {
      ListView listView;
      CardView cardview;ActionBar.LayoutParams layoutparams;
-    TextView textview,textview1,textview2;
-    LinearLayout LinearLayout;
+     TextView textview,textview1,textview2;
+     LinearLayout LinearLayout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
