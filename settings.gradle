@@ -1,0 +1,2 @@
+rootProject.name='finalClub'
+include ':app'
