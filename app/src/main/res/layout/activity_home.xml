@@ -5,69 +5,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".home">
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginBottom="20dp"
-        android:id="@+id/linearlayout"></LinearLayout>
 
 
-<!--    <androidx.cardview.widget.CardView-->
-<!--        android:layout_width="match_parent"-->
-<!--        android:layout_height="200dp"-->
-<!--        android:id="@+id/cardView"-->
-<!--        app:cardCornerRadius="5dp"-->
-<!--        app:cardElevation="10dp"-->
-<!--        app:contentPaddingRight="10dp"-->
-<!--        app:contentPaddingLeft="10dp"-->
-<!--        app:cardMaxElevation="15dp">-->
+<androidx.recyclerview.widget.RecyclerView
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/recycler_view">
 
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-<!--            <TextView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:id="@+id/textView"-->
-<!--                />-->
-<!--            <ImageView-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="170dp"-->
-<!--                android:id="@+id/cardImage"-->
-<!--                android:scaleType="centerCrop"/>-->
-
-<!--            <TextView-->
-<!--                android:layout_below="@+id/cardImage"-->
-<!--                android:id="@+id/cardTitle"-->
-<!--                android:gravity="center_vertical"-->
-<!--                android:text="Card Title"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="match_parent" />-->
-
-
-
-<!--        </RelativeLayout>-->
-
-
-<!--    </androidx.cardview.widget.CardView>-->
-
-<!--    <TextView-->
-<!--        android:id="@+id/textView3"-->
-<!--        android:layout_width="392dp"-->
-<!--        android:layout_height="164dp"-->
-<!--        android:layout_marginTop="100dp"-->
-<!--        android:text="TextView"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent" />-->
+</androidx.recyclerview.widget.RecyclerView>
 
 
 
