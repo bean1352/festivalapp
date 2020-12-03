@@ -9,6 +9,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ActionBar;
 import android.content.Context;
@@ -56,7 +57,7 @@ public class home<navController> extends AppCompatActivity {
     private ArrayList<String> mEvent = new ArrayList<>();
     private ArrayList<String> mPrice = new ArrayList<>();
     private ArrayList<String> mDate = new ArrayList<>();
-
+    private SwipeRefreshLayout mSwipeRefreshLayout;
 
 
 
@@ -65,6 +66,26 @@ public class home<navController> extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
+
+        mSwipeRefreshLayout = findViewById(R.id.swipeRefreshLayout);
+        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+
+                Toast.makeText(getApplicationContext(), "Refresh", Toast.LENGTH_SHORT).show();
+                finish();
+                startActivity(getIntent());
+                mSwipeRefreshLayout.setRefreshing(false);
+            }
+        });
+//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+//            @Override
+//            public void onRefresh() {
+//                Toast.makeText(getApplicationContext(), "Refresh", Toast.LENGTH_SHORT).show();
+////                finish();
+////                startActivity(getIntent());
+//            }
+//        });
 
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
