@@ -6,6 +6,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -16,6 +17,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -73,6 +75,25 @@ public class home<navController> extends AppCompatActivity {
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
 
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int id = item.getItemId();
+                if(id == R.id.filter) {
+                    Log.d(TAG, "onClick: FILTER");
+                    Toast.makeText(getApplicationContext(), "Filter", Toast.LENGTH_SHORT).show();
+                }
+
+                else if(id == R.id.logout) {
+                    FirebaseAuth.getInstance().signOut();
+                    Toast.makeText(getApplicationContext(), "Successfully Logged out", Toast.LENGTH_SHORT).show();
+                }
+
+
+                drawerLayout.closeDrawer(GravityCompat.START);
+                return true;
+            }
+        });
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
