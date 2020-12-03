@@ -12,6 +12,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
         android:layout_marginTop="55dp"
+        android:layout_marginBottom="55dp"
     android:id="@+id/recycler_view">
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -54,8 +55,22 @@
                 android:textColor="#FFF"
                 />
 
+
         </LinearLayout>
 
+        <com.google.android.material.bottomnavigation.BottomNavigationView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/bottom_navigation"
+            app:itemBackground="@color/colorPrimary"
+            app:itemTextColor="@drawable/selector"
+            app:itemIconTint="@drawable/selector"
+            app:menu="@menu/menu_navigation"
+
+            app:layout_constraintBottom_toBottomOf="parent"
+            tools:ignore="MissingConstraints"
+
+            />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 <com.google.android.material.navigation.NavigationView
@@ -66,6 +81,8 @@
     android:id="@+id/navigationView"
     android:layout_gravity="start"
     />
+
+
 
 
 </androidx.drawerlayout.widget.DrawerLayout>
