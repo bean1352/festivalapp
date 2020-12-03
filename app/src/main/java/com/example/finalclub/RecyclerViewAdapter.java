@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -15,10 +17,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
-public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder>{
+public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapter.ViewHolder> implements Filterable {
     private static final String TAG = "RecyclerViewAdapter";
 
     private ArrayList<String> mImageNames = new ArrayList<>();
@@ -26,15 +30,23 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     private ArrayList<String> mEvent = new ArrayList<>();
     private ArrayList<String> mPrice = new ArrayList<>();
     private ArrayList<String> mDate = new ArrayList<>();
+//    private List<Event> exampleList;
+//    private List<Event> exampleListFull;
+    List<Event> recyclerList;
+    List<Event> recyclerListAll;
     private Context mContext;
 
-    public RecyclerViewAdapter(ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> Event, ArrayList<String> Price, ArrayList<String> Date, Context context){
+    public RecyclerViewAdapter(ArrayList<String> imageNames, ArrayList<String> images, ArrayList<String> Event, ArrayList<String> Price, ArrayList<String> Date, Context context, List<Event> recyclerList){
         mImageNames = imageNames;
         mImages = images;
         mContext = context;
         mEvent = Event;
         mPrice = Price;
         mDate = Date;
+        this.recyclerList = recyclerList;
+        this.recyclerListAll = new ArrayList<>(recyclerList);
+//        this.exampleList = exampleList;
+//        exampleListFull = new ArrayList<>(exampleList);
     }
 
     @NonNull
@@ -70,6 +82,42 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         return mImageNames.size();
     }
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+
+    Filter filter = new Filter() {
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+
+            List<Event> filteredList = new ArrayList<>();
+
+            if(constraint.toString().isEmpty()){
+                filteredList.addAll(recyclerListAll);
+            }
+            else{
+                for(Event movie: recyclerListAll){
+                    if(movie.getEventName().toLowerCase().contains(constraint.toString().toLowerCase())){
+                        filteredList.add(movie);
+                    }
+                }
+            }
+
+            FilterResults filterResults = new FilterResults();
+            filterResults.values = filteredList;
+
+            return filterResults;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            recyclerList.clear();
+            recyclerList.addAll((List) results.values);
+            notifyDataSetChanged();
+        }
+    };
+
     public class ViewHolder extends RecyclerView.ViewHolder{
 
         CircleImageView image;
@@ -89,4 +137,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
 
         }
     }
+
+
 }

@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import android.app.ActionBar;
+import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
@@ -19,11 +20,15 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Gravity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +49,11 @@ import com.google.firebase.firestore.core.OrderBy;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 public class home<navController> extends AppCompatActivity {
-     ListView listView;
-     CardView cardview;ActionBar.LayoutParams layoutparams;
-     TextView textview,textview1,textview2;
-     LinearLayout LinearLayout;
-    SimpleDateFormat sfd = new SimpleDateFormat("dd-MM-yyyy");
+
+
     private static final String TAG = "home";
     private ArrayList<String> mNames = new ArrayList<>();
     private ArrayList<String> mImageURLs = new ArrayList<>();
@@ -58,6 +61,10 @@ public class home<navController> extends AppCompatActivity {
     private ArrayList<String> mPrice = new ArrayList<>();
     private ArrayList<String> mDate = new ArrayList<>();
     private SwipeRefreshLayout mSwipeRefreshLayout;
+    private RecyclerViewAdapter adapter;
+    private List<Event> exampleList = new ArrayList<>();
+    List<String> recyclerList = new ArrayList<>();
+    final ArrayList<String> arrayEvent = new ArrayList<>();
 
 
 
@@ -78,15 +85,10 @@ public class home<navController> extends AppCompatActivity {
                 mSwipeRefreshLayout.setRefreshing(false);
             }
         });
-//        mSwipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-//            @Override
-//            public void onRefresh() {
-//                Toast.makeText(getApplicationContext(), "Refresh", Toast.LENGTH_SHORT).show();
-////                finish();
-////                startActivity(getIntent());
-//            }
-//        });
 
+
+
+        recyclerList.add("hi");
         final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
         findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
@@ -95,6 +97,15 @@ public class home<navController> extends AppCompatActivity {
                 drawerLayout.openDrawer(GravityCompat.START);
             }
         });
+
+//          searchView = findViewById(R.id.searchView);
+//        findViewById(R.id.searchImage).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Toast.makeText(getApplicationContext(), "Search", Toast.LENGTH_SHORT).show();
+//
+//            }
+//        });
 
         NavigationView navigationView = findViewById(R.id.navigationView);
         navigationView.setItemIconTintList(null);
@@ -150,6 +161,7 @@ public class home<navController> extends AppCompatActivity {
 
 
 
+
         colref.orderBy("event_name").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
@@ -166,6 +178,12 @@ public class home<navController> extends AppCompatActivity {
                     String date = event.getDate();
                     String image = event.getImage();
 
+                    recyclerList.add(eventName);
+
+                    exampleList.add((new Event(eventName,clubName,eventPrice,date,image)));
+
+
+
                     initImageBitmaps(eventName,eventPrice,clubName, date, image);
                 }
 
@@ -174,6 +192,29 @@ public class home<navController> extends AppCompatActivity {
 
 
 
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_search, menu);
+        MenuItem item = menu.findItem(R.id.menu_search);
+        SearchView searchView = (SearchView)item.getActionView();
+
+        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+            @Override
+            public boolean onQueryTextSubmit(String query) {
+                return false;
+            }
+
+            @Override
+            public boolean onQueryTextChange(String newText) {
+                adapter.getFilter().filter(newText);
+
+                return false;
+            }
+        });
+        return true;
     }
 
     private void initImageBitmaps(String event_name, String event_price, String club_name, String date, String image){
@@ -191,7 +232,7 @@ public class home<navController> extends AppCompatActivity {
     }
     private void initRecyclerView(){
         RecyclerView recyclerView = findViewById(R.id.recycler_view);
-        RecyclerViewAdapter adapter = new RecyclerViewAdapter( mNames, mImageURLs, mEvent, mPrice, mDate, this);
+        adapter = new RecyclerViewAdapter( mNames, mImageURLs, mEvent, mPrice, mDate, this, exampleList);
 
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
