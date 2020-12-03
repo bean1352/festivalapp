@@ -36,6 +36,7 @@ import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 import com.google.firebase.firestore.QueryDocumentSnapshot;
 import com.google.firebase.firestore.QuerySnapshot;
+import com.google.firebase.firestore.core.OrderBy;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -101,7 +102,8 @@ public class home<navController> extends AppCompatActivity {
 
 
 
-        colref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
+
+        colref.orderBy("event_name").get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
 

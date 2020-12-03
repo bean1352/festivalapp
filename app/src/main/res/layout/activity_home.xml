@@ -61,6 +61,7 @@
 <com.google.android.material.navigation.NavigationView
     android:layout_width="150dp"
     android:layout_height="120dp"
+    android:layout_marginTop="55dp"
     app:menu="@menu/navigation_menu"
     android:id="@+id/navigationView"
     android:layout_gravity="start"
