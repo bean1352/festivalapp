@@ -4,6 +4,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.cardview.widget.CardView;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -19,10 +21,12 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.navigation.NavigationView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.firestore.CollectionReference;
 import com.google.firebase.firestore.DocumentReference;
@@ -35,7 +39,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class home extends AppCompatActivity {
+public class home<navController> extends AppCompatActivity {
      ListView listView;
      CardView cardview;ActionBar.LayoutParams layoutparams;
      TextView textview,textview1,textview2;
@@ -57,18 +61,29 @@ public class home extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_home);
 
-        //final TextView textview = findViewById(R.id.textView);
+        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
+
+        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                drawerLayout.openDrawer(GravityCompat.START);
+            }
+        });
+
+        NavigationView navigationView = findViewById(R.id.navigationView);
+        navigationView.setItemIconTintList(null);
+
 
 
         FirebaseFirestore db = FirebaseFirestore.getInstance();
         CollectionReference colref = db.collection("events");
-        //LinearLayout = (LinearLayout)findViewById(R.id.linearlayout);
+
 
 
         colref.get().addOnSuccessListener(new OnSuccessListener<QuerySnapshot>() {
             @Override
             public void onSuccess(QuerySnapshot queryDocumentSnapshots) {
-                String data = "";
+
 
                 for(QueryDocumentSnapshot queryDocumentSnapshot : queryDocumentSnapshots){
 
@@ -80,13 +95,10 @@ public class home extends AppCompatActivity {
                     String clubName = event.getClubName();
                     String date = event.getDate();
                     String image = event.getImage();
-                    //data +=  " "+eventName+" "+eventPrice+" "+clubName+" \n\n";
-                    //sfd.format(new Date(date));
 
-                    //CreateCardView(eventName,eventPrice,clubName);
                     initImageBitmaps(eventName,eventPrice,clubName, date, image);
                 }
-                //textView.setText(data);
+
             }
         });
 
@@ -115,62 +127,5 @@ public class home extends AppCompatActivity {
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
     }
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    public void CreateCardView(String event_name, String event_price, String club_name){
-//        cardview = new CardView(this);
-//        layoutparams = new ActionBar.LayoutParams(
-//                ActionBar.LayoutParams.MATCH_PARENT,
-//                ActionBar.LayoutParams.MATCH_PARENT
-//        );
-//        // Set the layoutParams on the CardView
-//        cardview.setLayoutParams(layoutparams);
-//
-//
-//        // Set the card’s corner radius
-//        cardview.setRadius(6);
-//
-//
-//        // Set its background color
-//       // cardview.setCardBackgroundColor(Color.GREEN);
-//
-//        // Set its maximum elevation
-//        cardview.setMaxCardElevation(6);
-//
-//        // Create a TextView
-//        textview = new TextView(this);
-//        textview1 = new TextView(this);
-//        textview2 = new TextView(this);
-//
-//        // Apply the layoutParams (wrap_content) to this TextView
-//
-//        textview.setLayoutParams(layoutparams);
-//
-//        textview1.setLayoutParams(layoutparams);
-//
-//        textview2.setLayoutParams(layoutparams);
-//
-//
-//
-//        // Define the text you want to display
-//       // textview.setText(event_name+"\n"+event_price+"\n"+club_name+"\n\n");
-//        textview.setText(event_name);
-//        textview1.setText(event_price);
-//        textview2.setText(club_name);
-//
-//
-//
-//
-//
-//        // Define the text’s appearance, including its color
-//        textview.setTextAppearance(android.R.style.TextAppearance_Material_Headline);
-//        textview.setTextColor(Color.BLACK);
-//        textview1.setTextAppearance(android.R.style.TextAppearance_Material_Headline);
-//        textview1.setTextColor(Color.BLACK);
-//        textview2.setTextAppearance(android.R.style.TextAppearance_Material_Headline);
-//        textview2.setTextColor(Color.BLACK);
-//        cardview.addView(textview);
-//        cardview.addView(textview1);
-//        cardview.addView(textview2);
-//        LinearLayout.addView(cardview);
-//    }
+
 }
