@@ -65,7 +65,7 @@ public class home<navController> extends AppCompatActivity {
     private List<Event> exampleList = new ArrayList<>();
     List<String> recyclerList = new ArrayList<>();
     final ArrayList<String> arrayEvent = new ArrayList<>();
-
+    DrawerLayout drawerLayout;
 
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -88,15 +88,16 @@ public class home<navController> extends AppCompatActivity {
 
 
 
-        recyclerList.add("hi");
-        final DrawerLayout drawerLayout = findViewById(R.id.drawerLayout);
 
-        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                drawerLayout.openDrawer(GravityCompat.START);
-            }
-        });
+        recyclerList.add("hi");
+         drawerLayout = findViewById(R.id.drawerLayout);
+
+//        findViewById(R.id.imageMenu).setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                drawerLayout.openDrawer(GravityCompat.START);
+//            }
+//        });
 
 //          searchView = findViewById(R.id.searchView);
 //        findViewById(R.id.searchImage).setOnClickListener(new View.OnClickListener() {
@@ -204,6 +205,7 @@ public class home<navController> extends AppCompatActivity {
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String query) {
+
                 return false;
             }
 
@@ -239,4 +241,16 @@ public class home<navController> extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+
+        switch(item.getItemId()){
+            case R.id.menuActionBar:
+                drawerLayout.openDrawer(GravityCompat.START);
+                break;
+
+        }
+
+        return true;
+    }
 }

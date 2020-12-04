@@ -60,6 +60,7 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
         Log.d(TAG, "onBindViewHolder: called");
+        //Event currentItem = recyclerList.get(position);
         Glide.with(mContext).asBitmap().load(mImages.get(position)).into(holder.image);
 
         holder.imageName.setText(mImageNames.get(position));

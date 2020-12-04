@@ -51,6 +51,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
 
 
+
+
+
         fAuth = FirebaseAuth.getInstance();
         createbtn = findViewById(R.id.createText);
         progressBar = findViewById(R.id.progressBar);

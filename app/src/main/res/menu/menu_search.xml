@@ -7,4 +7,12 @@
             android:icon="@drawable/ic_baseline_search_24"
             app:showAsAction="ifRoom|collapseActionView"
             app:actionViewClass="android.widget.SearchView" />
+        <item
+            android:id="@+id/menuActionBar"
+            android:title="Menu"
+            android:icon="@drawable/ic_baseline_menu_24"
+
+            >
+        </item>
+
 </menu>

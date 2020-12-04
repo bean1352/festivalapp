@@ -44,7 +44,10 @@
         <activity
             android:name=".register" />
         <activity
-            android:name=".home" />
+            android:name=".home"
+            android:windowSoftInputMode="adjustPan"
+            android:icon="@drawable/ic_baseline_home_24"
+            android:label="The Events App"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
